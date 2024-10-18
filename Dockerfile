@@ -19,24 +19,14 @@ WORKDIR /workspace
 COPY requirements.txt /workspace/
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Define a build-time argument for image type
-ARG IMAGE_TYPE=full
-
 # Conditional logic based on the IMAGE_TYPE argument
 # Always copy the Docker directory, but only use it if IMAGE_TYPE is not "elite"
-COPY ./Docker /workspace/Docker 
-# elite 类型的镜像里面不包含额外的模型
-RUN if [ "$IMAGE_TYPE" != "elite" ]; then \
-        chmod +x /workspace/Docker/download.sh && \
-        /workspace/Docker/download.sh && \
-        python /workspace/Docker/download.py && \
-        python -m nltk.downloader averaged_perceptron_tagger cmudict; \
-    fi
+COPY ./Docker /workspace/Docker
 
 
 # Copy the rest of the application
 COPY . /workspace
 
-EXPOSE 9871 9872 9873 9874 9880
+EXPOSE 8008
 
-CMD ["python", "webui.py"]
+CMD ["sh", "-c", "./docker-installer.sh"]
