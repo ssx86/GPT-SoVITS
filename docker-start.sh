@@ -5,7 +5,7 @@ python -m venv /venv
 #
 
 python -m pip install --upgrade pip -i https://mirrors.aliyun.com/pypi/simple/
-pip install -r requirements.txt
+pip install -r requirements.txt -v -i https://mirrors.aliyun.com/pypi/simple/
 
 chmod +x /workspace/Docker/download.sh
 /workspace/Docker/download.sh
