@@ -4,8 +4,8 @@ python -m venv /venv
 . /venv/bin/activate
 #
 
-python -m pip install --upgrade pip -i https://mirrors.aliyun.com/pypi/simple/
-pip install -r requirements.txt -v -i https://mirrors.aliyun.com/pypi/simple/
+python -m pip install --upgrade pip -i https://mirrors.volces.com/pypi/simple/
+pip install -r requirements.txt -v -i https://mirrors.volces.com/pypi/simple/
 
 chmod +x /workspace/Docker/download.sh
 /workspace/Docker/download.sh
