@@ -29,7 +29,7 @@ i18n = I18nAuto()
 cut_method_names = get_cut_method_names()
 
 config_path = os.getenv("TTS_CONFIG")
-port = os.getenv("PORT")
+port = os.getenv("PORT", 8008)
 port = int(port)
 host = os.getenv("BIND_HOST")
 
