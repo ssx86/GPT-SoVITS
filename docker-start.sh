@@ -17,4 +17,4 @@ workers=${workers:-"5"}
 port=8008
 
 echo "Application instance launch on port $port."
-ENV=${ENV} uvicorn server_api:app --host=0.0.0.0 --app-dir=src --port=$port --workers=$workers
+ENV=${ENV} uvicorn server_api:app --host=0.0.0.0 --port=$port --workers=$workers
