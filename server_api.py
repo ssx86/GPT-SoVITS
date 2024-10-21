@@ -1,3 +1,4 @@
+import gc
 import os
 import sys
 import traceback
@@ -29,7 +30,7 @@ i18n = I18nAuto()
 cut_method_names = get_cut_method_names()
 
 config_path = os.getenv("TTS_CONFIG")
-port = os.getenv("PORT")
+port = os.getenv("PORT", 8008)
 port = int(port)
 host = os.getenv("BIND_HOST")
 
@@ -96,6 +97,9 @@ async def tts_handle(req: dict):
         return Response(audio_data, media_type=f"audio/{media_type}")
     except Exception as e:
         return JSONResponse(status_code=400, content={"message": f"tts failed", "Exception": str(e)})
+    finally:
+        del tts_pipeline
+        gc.collect()
 
 
 def check_params(req: dict):

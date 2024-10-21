@@ -1,17 +1,22 @@
 version: '3.8'
 
+
+volumes:
+  sovits_venv:
+  sovits_pip_cache:
+  sovits_pretrained:
+
 services:
   gpt-sovits:
-    image: breakstring/gpt-sovits:latest   # please change the image name and tag base your environment. If the tag contains the word 'elite', such as "latest-elite", it indicates that the image does not include the necessary models such as GPT-SoVITS, UVR5, Damo ASR, etc. You will need to download them yourself and map them into the container.
+    build: .
     container_name: gpt-sovits-container
     environment:
       - is_half=False
       - is_share=False
     volumes:
-      - ./output:/workspace/output
-      - ./logs:/workspace/logs
-      - ./SoVITS_weights:/workspace/SoVITS_weights
-      - ./reference:/workspace/reference
+      - sovits_pretrained:/workspace/GPT_SoVITS/pretrained_models
+      - sovits_pip_cache:/root/.cache/pip
+      - sovits_venv:/venv
     working_dir: /workspace
     ports:
       - "9880:9880"
@@ -20,13 +25,13 @@ services:
       - "9873:9873"
       - "9874:9874"
     shm_size: 16G
-    deploy:
-      resources:
-        reservations:
-          devices:
-          - driver: nvidia
-            count: "all"
-            capabilities: [gpu]
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #       - driver: nvidia
+    #         count: "all"
+    #         capabilities: [gpu]
     stdin_open: true
     tty: true
     restart: unless-stopped

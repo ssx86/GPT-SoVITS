@@ -4,18 +4,18 @@ python -m venv /venv
 . /venv/bin/activate
 #
 
-python -m pip install --upgrade pip -i https://mirrors.aliyun.com/pypi/simple/
-pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/
-
-# Set up environment variables
-ENV=${ENV:-"dev"}
-workers=${workers:-"5"}
-port=8008
-
-echo "Application instance launch on port $port."
+python -m pip install --upgrade pip -i https://mirrors.volces.com/pypi/simple/
+pip install -r requirements.txt -v -i https://mirrors.volces.com/pypi/simple/
 
 chmod +x /workspace/Docker/download.sh
 /workspace/Docker/download.sh
-python -m nltk.downloader averaged_perceptron_tagger cmudict;
+python -m nltk.downloader averaged_perceptron_tagger cmudict
+python /workspace/GPT_SoVITS/download.py
 
-ENV=${ENV} uvicorn server_api:app --host=0.0.0.0 --app-dir=src --port=$port --workers=$workers
+# Set up environment variables
+ENV=${ENV:-"dev"}
+workers=${workers:-"2"}
+port=8008
+
+echo "Application instance launch on port $port."
+ENV=${ENV} uvicorn server_api:app --host=0.0.0.0 --port=$port --workers=$workers
