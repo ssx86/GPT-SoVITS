@@ -17,3 +17,18 @@ https://hf-mirror.com/lj1995/GPT-SoVITS/resolve/main/chinese-roberta-wwm-ext-lar
   out=GPT_SoVITS/pretrained_models/chinese-roberta-wwm-ext-large/pytorch_model.bin
 https://hf-mirror.com/lj1995/GPT-SoVITS/resolve/main/chinese-roberta-wwm-ext-large/tokenizer.json
   out=GPT_SoVITS/pretrained_models/chinese-roberta-wwm-ext-large/tokenizer.json
+# nltk packages
+https://gitee.com/KnoDRy/nltk_data/raw/gh-pages/packages/taggers/averaged_perceptron_tagger.zip
+  out=/root/nltk_data/taggers/averaged_perceptron_tagger.zip
+https://gitee.com/KnoDRy/nltk_data/raw/gh-pages/packages/taggers/averaged_perceptron_tagger_eng.zip
+  out=/root/nltk_data/taggers/averaged_perceptron_tagger_eng.zip
+https://gitee.com/KnoDRy/nltk_data/raw/gh-pages/packages/taggers/averaged_perceptron_tagger_ru.zip
+  out=/root/nltk_data/taggers/averaged_perceptron_tagger_ru.zip
+https://gitee.com/KnoDRy/nltk_data/raw/gh-pages/packages/taggers/averaged_perceptron_tagger_rus.zip
+  out=/root/nltk_data/taggers/averaged_perceptron_tagger_rus.zip
+https://gitee.com/KnoDRy/nltk_data/raw/gh-pages/packages/taggers/maxent_treebank_pos_tagger.zip
+  out=/root/nltk_data/taggers/maxent_treebank_pos_tagger.zip
+https://gitee.com/KnoDRy/nltk_data/raw/gh-pages/packages/taggers/maxent_treebank_pos_tagger_tab.zip
+  out=/root/nltk_data/taggers/maxent_treebank_pos_tagger_tab.zip
+https://gitee.com/KnoDRy/nltk_data/raw/gh-pages/packages/corpora/cmudict.zip
+  out=/root/nltk_data/corpora/cmudict.zip
