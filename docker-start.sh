@@ -9,7 +9,6 @@ pip install -r requirements.txt -v -i https://mirrors.volces.com/pypi/simple/
 
 chmod +x /workspace/Docker/download.sh
 /workspace/Docker/download.sh
-python -m nltk.downloader averaged_perceptron_tagger cmudict
 python /workspace/GPT_SoVITS/download.py
 
 # Set up environment variables
