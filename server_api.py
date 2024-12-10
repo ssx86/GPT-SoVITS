@@ -16,6 +16,7 @@ import wave
 import signal
 import numpy as np
 import soundfile as sf
+import logging
 from fastapi import FastAPI, Request, HTTPException, Response
 from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi import FastAPI, UploadFile, File
@@ -79,6 +80,7 @@ async def tts_post_endpoint(params: TTSRequest):
 
 
 async def tts_handle(req: dict):
+    text = req.get("text", "")
     check_res = check_params(req)
     if check_res is not None:
         return check_res
@@ -91,9 +93,12 @@ async def tts_handle(req: dict):
 
     media_type = req.get("media_type", "wav")
     try:
+        #增加详细日志加部分省略文本定位问题
+        logging.info(f"Starting TTS request handling with text: {truncate_text(text)}")
         tts_generator = tts_pipeline.run(req)
         sr, audio_data = next(tts_generator)
         audio_data = pack_audio(BytesIO(), audio_data, sr, media_type).getvalue()
+        logging.info(f"TTS request success with text: {truncate_text(text)}")
         return Response(audio_data, media_type=f"audio/{media_type}")
     except Exception as e:
         # 记录详细日志
@@ -103,7 +108,11 @@ async def tts_handle(req: dict):
         del tts_pipeline
         gc.collect()
 
-
+def truncate_text(text: str, max_length: int = 10) -> str:
+    """截取text字符串前max_length个字符，并添加省略号。"""
+    if len(text) > max_length:
+        return text[:max_length] + '.........'
+    return text
 def check_params(req: dict):
     text: str = req.get("text", "")
     text_lang: str = req.get("text_lang", "")
