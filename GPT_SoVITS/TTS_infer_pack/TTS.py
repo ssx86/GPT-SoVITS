@@ -912,6 +912,7 @@ class TTS:
 
                 t5 = ttime()
                 t_45 += t5 - t4
+                print(f"参数打印：return_fragment: {return_fragment}，stop_flag： {self.stop_flag}")
                 if return_fragment:
                     print("%.3f\t%.3f\t%.3f\t%.3f" % (t1 - t0, t2 - t1, t4 - t3, t5 - t4))
                     yield self.audio_postprocess([batch_audio_fragment], 
@@ -931,7 +932,9 @@ class TTS:
 
             if not return_fragment:
                 print("%.3f\t%.3f\t%.3f\t%.3f" % (t1 - t0, t2 - t1, t_34, t_45))
+                print(f"Audio list length before check: {len(audio)}")
                 if len(audio) == 0:
+                    print("Audio list is empty, yielding empty audio.")
                     yield self.configs.sampling_rate, np.zeros(int(self.configs.sampling_rate),
                                                                 dtype=np.int16)
                     return
