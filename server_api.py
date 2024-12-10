@@ -96,6 +96,8 @@ async def tts_handle(req: dict):
         audio_data = pack_audio(BytesIO(), audio_data, sr, media_type).getvalue()
         return Response(audio_data, media_type=f"audio/{media_type}")
     except Exception as e:
+        # 记录详细日志
+        print(f"Error in TTS generation: {str(e)}")
         return JSONResponse(status_code=400, content={"message": f"tts failed", "Exception": str(e)})
     finally:
         del tts_pipeline
