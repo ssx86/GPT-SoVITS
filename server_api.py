@@ -95,7 +95,7 @@ async def tts_handle(req: dict):
         #增加详细日志加部分省略文本定位问题
         print(f"Starting TTS request handling with text: {truncate_text(text)}")
         tts_generator = tts_pipeline.run(req)
-        print(f"tts_pipeline task finished with text: {truncate_text(text)}")
+        print(f"tts_pipeline task finished with text: {truncate_text(text)}  , tts_generator: {tts_generator}")
         sr, audio_data = next(tts_generator)
         print(f"get next tts_generator finished sr: {sr} , audio data shape ：{audio_data.shape}")
         audio_data = pack_audio(BytesIO(), audio_data, sr, media_type).getvalue()
