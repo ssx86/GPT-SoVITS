@@ -346,7 +346,7 @@ class TTS:
         self.configs.hz = 50
         dict_s1 = torch.load(weights_path, map_location=self.configs.device)
         config = dict_s1["config"]
-        self.configs.max_sec = config["data"]["max_sec"]
+        self.configs.max_sec = config["data"]["max_sec", 60]
         t2s_model = Text2SemanticLightningModule(config, "****", is_train=False)
         t2s_model.load_state_dict(dict_s1["weight"])
         t2s_model = t2s_model.to(self.configs.device)
