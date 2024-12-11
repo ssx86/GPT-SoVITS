@@ -105,9 +105,7 @@ async def tts_handle(req: dict):
         # 记录详细日志
         print(f"Error in TTS generation: {str(e)}")
         return JSONResponse(status_code=400, content={"message": f"tts failed", "Exception": str(e)})
-    finally:
-        del tts_pipeline
-        gc.collect()
+
 
 def truncate_text(text: str, max_length: int = 10) -> str:
     """截取text字符串前max_length个字符，并添加省略号。"""
