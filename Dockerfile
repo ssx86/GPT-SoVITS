@@ -23,10 +23,6 @@ RUN apt-get update && \
     git lfs install && \
     rm -rf /var/lib/apt/lists/*
 
-
-# Copy the rest of the application
-COPY . /workspace
-
 EXPOSE 8008
 
 CMD ["sh", "-c", "./docker-start.sh"]

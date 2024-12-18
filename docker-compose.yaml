@@ -17,6 +17,7 @@ services:
       - ../storage/venv:/venv
       - ../storage/nltk_data:/root/nltk_data
       - ../storage/uploads:/uploads
+      - .:/workspace
     working_dir: /workspace
     ports:
       - "8828:8828"
