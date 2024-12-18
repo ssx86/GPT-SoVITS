@@ -14,7 +14,7 @@ python /workspace/GPT_SoVITS/download.py
 # Set up environment variables
 ENV=${ENV:-"dev"}
 workers=${workers:-"2"}
-port=8008
+port=${port:-"8008"}
 
 echo "Application instance launch on port $port."
 ENV=${ENV} uvicorn server_api:app --host=0.0.0.0 --port=$port --workers=$workers

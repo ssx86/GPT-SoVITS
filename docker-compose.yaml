@@ -1,11 +1,6 @@
 version: '3.8'
 
 
-volumes:
-  sovits_venv:
-  sovits_pip_cache:
-  sovits_pretrained:
-
 services:
   gpt-sovits:
     build: .
@@ -13,17 +8,18 @@ services:
     environment:
       - is_half=False
       - is_share=False
+      - workers=1
+      - port=8828
     volumes:
-      - sovits_pretrained:/workspace/GPT_SoVITS/pretrained_models
-      - sovits_pip_cache:/root/.cache/pip
-      - sovits_venv:/venv
+      - ../storage/pretrained_models:/workspace/GPT_SoVITS/pretrained_models
+      - ../storage/G2PWModel:/workspace/GPT_SoVITS/text/G2PWModel
+      - ../storage/pip:/root/.cache/pip
+      - ../storage/venv:/venv
+      - ../storage/nltk_data:/root/nltk_data
+      - ../storage/uploads:/uploads
     working_dir: /workspace
     ports:
-      - "9880:9880"
-      - "9871:9871"
-      - "9872:9872"
-      - "9873:9873"
-      - "9874:9874"
+      - "8828:8828"
     shm_size: 16G
     # deploy:
     #   resources:

@@ -26,6 +26,9 @@ from GPT_SoVITS.TTS_infer_pack.TTS import TTS, TTS_Config
 from GPT_SoVITS.TTS_infer_pack.text_segmentation_method import get_method_names as get_cut_method_names
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
+from volcen_oss_tool import VolcenOssTool
+
+
 i18n = I18nAuto()
 cut_method_names = get_cut_method_names()
 
@@ -75,7 +78,16 @@ class TTSRequest(BaseModel):
 @app.post("/tts")
 async def tts_post_endpoint(params: TTSRequest):
     data = params.dict()
-    return await tts_handle(data)
+    if check_file_exist(
+        data.get("gpt_model_path")
+    ) and check_file_exist(
+        data.get("vits_model_path")
+    ) and check_file_exist(
+        data.get("ref_audio_path")
+    ):
+        return await tts_handle(data)
+    else:
+        return JSONResponse(status_code=400, content={"message": "file not exist"})
 
 
 async def tts_handle(req: dict):
@@ -204,6 +216,20 @@ def pack_aac(io_buffer: BytesIO, data: np.ndarray, rate: int):
     out, _ = process.communicate(input=data.tobytes())
     io_buffer.write(out)
     return io_buffer
+
+
+def check_file_exist(file_path):
+    if os.path.exists(file_path):
+        return True
+    else:
+        return download_file(file_path)
+
+
+def download_file(file_path):
+    result = VolcenOssTool.download_large_file(file_path, file_path)
+    if result is None:
+        return False
+    return True
 
 
 if __name__ == "__main__":
