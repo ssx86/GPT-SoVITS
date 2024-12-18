@@ -1,6 +1,6 @@
 # Base CUDA image
 # FROM cnstark/pytorch:2.0.1-py3.9.17-cuda11.8.0-ubuntu20.04
-FROM cnstark/pytorch:2.0.1-py3.9.17-cuda11.8.0-ubuntu20.04
+FROM docker.unsee.tech/cnstark/pytorch:2.0.1-py3.9.17-cuda11.8.0-ubuntu20.04
 
 
 # Install 3rd party apps
